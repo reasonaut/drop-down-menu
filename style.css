@@ -1,0 +1,16 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+#content {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+#navBar {
+  height: 15%;
+  min-height: 200px;
+}
