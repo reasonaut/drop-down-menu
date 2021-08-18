@@ -20,6 +20,7 @@ export const DropDownMenu = (() => {
 
         // add list items
         const list = document.createElement('ul');
+        list.style.listStyleType = 'none';
         list.style.margin = '0';
         list.style.padding = '0';
         list.style.textAlign = 'center';
