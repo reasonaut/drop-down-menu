@@ -9,3 +9,13 @@ body {
   display: flex;
   flex-flow: column;
 }
+/* image slider */
+#image-slider-container {
+  width: auto;
+  margin: 0 auto;
+  position: relative;
+  background-color: pink;
+}
+.image-container {
+
+}
