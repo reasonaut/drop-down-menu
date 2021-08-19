@@ -39,6 +39,16 @@ export const ImageSlider = (() => {
         moveToSlide(slider, currentSlide, prevSlide);
     }
 
+    function navBarSelection(e) {
+        const navButtonId = e.target.getAttribute('nav-button-id');
+        const navigatedSlide = document.querySelector(
+            `[li-id='${navButtonId}']`
+        );
+        const slider = document.querySelector('#images-track');
+        const currentSlide = document.querySelector('.current-slide');
+        moveToSlide(slider, currentSlide, navigatedSlide);
+    }
+
     function buildHtml() {
         const imageSliderContainer = document.createElement('div');
         imageSliderContainer.id = 'image-slider-container';
@@ -80,6 +90,7 @@ export const ImageSlider = (() => {
             const navButton = document.createElement('button');
             navButton.classList.add('nav-button');
             navButton.setAttribute('nav-button-id', i + 1);
+            navButton.addEventListener('click', navBarSelection);
             sliderNav.appendChild(navButton);
         }
         // set initial page load nav selection

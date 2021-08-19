@@ -48,6 +48,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
+  cursor: pointer;  
 }
 #left-button {
   left: -40px;
@@ -64,6 +65,7 @@ body {
   border-radius: 50%;
   padding: 10px;
   border: 1px solid black;
+  cursor: pointer;
 }
 #slider-nav button.current-slide {
   background-color: rgba(0, 0, 0, 0.5);
