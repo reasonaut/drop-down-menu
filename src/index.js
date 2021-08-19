@@ -15,3 +15,4 @@ import { ImageSlider } from './imageSlider';
 
 // test image slider
 ImageSlider.buildHtml();
+ImageSlider.arrangeImagesHorizontally();

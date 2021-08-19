@@ -7,14 +7,38 @@ import Image5 from './assets/image-5.jpg';
 export const ImageSlider = (() => {
     const images = [Image1, Image2, Image3, Image4, Image5];
     const contentContainer = document.getElementById('content');
+
+    function moveSliderLeft() {
+        const slider = document.querySelector('#images-track');
+        const currentSlide = document.querySelector('.current-slide');
+        const nextSlide = currentSlide.nextElementSibling;
+        if (!nextSlide) return;
+        const amountToMove = nextSlide.style.left;
+        slider.style.transform = `translateX(-${amountToMove})`;
+        currentSlide.classList.remove('current-slide');
+        nextSlide.classList.add('current-slide');
+    }
+
+    function moveSliderRight() {
+        const slider = document.querySelector('#images-track');
+        const currentSlide = document.querySelector('.current-slide');
+        const prevSlide = currentSlide.previousElementSibling;
+        if (!prevSlide) return;
+        const amountToMove = prevSlide.style.left;
+        slider.style.transform = `translateX(${amountToMove})`;
+        currentSlide.classList.remove('current-slide');
+        prevSlide.classList.add('current-slide');
+    }
+
     function buildHtml() {
         const imageSliderContainer = document.createElement('div');
         imageSliderContainer.id = 'image-slider-container';
-        
+
         // create prev button
         const leftButton = document.createElement('button');
         leftButton.id = 'left-button';
         leftButton.innerText = 'prev';
+        leftButton.addEventListener('click', moveSliderRight);
         imageSliderContainer.appendChild(leftButton);
         // create images track
         const trackContainer = document.createElement('div');
@@ -30,12 +54,14 @@ export const ImageSlider = (() => {
             image.src = images[i - 1];
             imageListItem.appendChild(image);
         }
+        imagesTrack.firstElementChild.classList.add('current-slide');
         trackContainer.appendChild(imagesTrack);
         imageSliderContainer.appendChild(trackContainer);
         // create next button
         const rightButton = document.createElement('button');
         rightButton.id = 'right-button';
         rightButton.innerText = 'next';
+        rightButton.addEventListener('click', moveSliderLeft);
         imageSliderContainer.appendChild(rightButton);
         // create slider nav buttons
         const sliderNav = document.createElement('div');
@@ -51,6 +77,17 @@ export const ImageSlider = (() => {
         contentContainer.appendChild(imageSliderContainer);
     }
 
-    return { buildHtml };
+    function arrangeImagesHorizontally() {
+        const slideWidth = document
+            .querySelector('.image-slide')
+            .getBoundingClientRect().width;
+        const imagesTrack = document.querySelector('#images-track');
+        for (let i = 0; i < imagesTrack.childElementCount; i += 1) {
+            const slide = document.querySelector(`[li-id='${i + 1}']`);
+            slide.style.left = `${i * slideWidth}px`;
+        }
+    }
+
+    return { buildHtml, arrangeImagesHorizontally };
 })();
 export default { ImageSlider };
