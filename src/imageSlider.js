@@ -7,16 +7,28 @@ import Image5 from './assets/image-5.jpg';
 export const ImageSlider = (() => {
     const images = [Image1, Image2, Image3, Image4, Image5];
     const contentContainer = document.getElementById('content');
+    function moveToSlide(slider, currentSlide, targetSlide) {
+        slider.style.transform = `translateX(-${targetSlide.style.left})`;
+        const currentSlideId = currentSlide.getAttribute('li-id');
+        const currentNav = document.querySelector(
+            `[nav-button-id='${currentSlideId}']`
+        );
+        const targetSlideId = targetSlide.getAttribute('li-id');
+        const targetNav = document.querySelector(
+            `[nav-button-id='${targetSlideId}']`
+        )
+        currentSlide.classList.remove('current-slide');
+        targetSlide.classList.add('current-slide');
+        currentNav.classList.remove('current-slide');
+        targetNav.classList.add('current-slide');
+    }
 
     function moveSliderLeft() {
         const slider = document.querySelector('#images-track');
         const currentSlide = document.querySelector('.current-slide');
         const nextSlide = currentSlide.nextElementSibling;
         if (!nextSlide) return;
-        const amountToMove = nextSlide.style.left;
-        slider.style.transform = `translateX(-${amountToMove})`;
-        currentSlide.classList.remove('current-slide');
-        nextSlide.classList.add('current-slide');
+        moveToSlide(slider, currentSlide, nextSlide);
     }
 
     function moveSliderRight() {
@@ -24,10 +36,7 @@ export const ImageSlider = (() => {
         const currentSlide = document.querySelector('.current-slide');
         const prevSlide = currentSlide.previousElementSibling;
         if (!prevSlide) return;
-        const amountToMove = prevSlide.style.left;
-        slider.style.transform = `translateX(${amountToMove})`;
-        currentSlide.classList.remove('current-slide');
-        prevSlide.classList.add('current-slide');
+        moveToSlide(slider, currentSlide, prevSlide);
     }
 
     function buildHtml() {
@@ -45,15 +54,16 @@ export const ImageSlider = (() => {
         trackContainer.id = 'track-container';
         const imagesTrack = document.createElement('ul');
         imagesTrack.id = 'images-track';
-        for (let i = 1; i < 6; i += 1) {
+        for (let i = 0; i < images.length; i += 1) {
             const imageListItem = document.createElement('li');
             imageListItem.classList.add('image-slide');
-            imageListItem.setAttribute('li-id', i);
+            imageListItem.setAttribute('li-id', i + 1);
             imagesTrack.appendChild(imageListItem);
             const image = new Image();
-            image.src = images[i - 1];
+            image.src = images[i];
             imageListItem.appendChild(image);
         }
+        // set initial page load slide
         imagesTrack.firstElementChild.classList.add('current-slide');
         trackContainer.appendChild(imagesTrack);
         imageSliderContainer.appendChild(trackContainer);
@@ -72,6 +82,8 @@ export const ImageSlider = (() => {
             navButton.setAttribute('nav-button-id', i + 1);
             sliderNav.appendChild(navButton);
         }
+        // set initial page load nav selection
+        sliderNav.firstElementChild.classList.add('current-slide');
         imageSliderContainer.appendChild(sliderNav);
 
         contentContainer.appendChild(imageSliderContainer);
