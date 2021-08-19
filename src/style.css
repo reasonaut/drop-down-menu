@@ -8,14 +8,55 @@ body {
 #content {
   display: flex;
   flex-flow: column;
+  height: 100%;
+  width: 100%;
 }
 /* image slider */
 #image-slider-container {
-  width: auto;
+  padding-top: 20px;
+  width: 70%;
+  height: 600px;
   margin: 0 auto;
   position: relative;
   background-color: pink;
 }
-.image-container {
+#track-container {
+  position: relative;
+  background-color: lightgreen;
+  height: 100%;
 
+}
+#images-track {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.image-slide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.image-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#left-button, #right-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#left-button {
+  left: -40px;
+}
+#right-button {
+  right: -40px;
+}
+#slider-nav {
+  display: flex;
+  justify-content: center;
+}
+#slider-nav button {
+  margin: 15px;
 }

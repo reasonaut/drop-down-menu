@@ -10,16 +10,44 @@ export const ImageSlider = (() => {
     function buildHtml() {
         const imageSliderContainer = document.createElement('div');
         imageSliderContainer.id = 'image-slider-container';
-        // create divs for images
+        
+        // create prev button
+        const leftButton = document.createElement('button');
+        leftButton.id = 'left-button';
+        leftButton.innerText = 'prev';
+        imageSliderContainer.appendChild(leftButton);
+        // create images track
+        const trackContainer = document.createElement('div');
+        trackContainer.id = 'track-container';
+        const imagesTrack = document.createElement('ul');
+        imagesTrack.id = 'images-track';
         for (let i = 1; i < 6; i += 1) {
-            const imageDiv = document.createElement('div');
-            imageDiv.classList.add('image-container');
-            imageDiv.setAttribute('data-id', i);
-            imageSliderContainer.appendChild(imageDiv);
+            const imageListItem = document.createElement('li');
+            imageListItem.classList.add('image-slide');
+            imageListItem.setAttribute('li-id', i);
+            imagesTrack.appendChild(imageListItem);
             const image = new Image();
             image.src = images[i - 1];
-            imageDiv.appendChild(image);
+            imageListItem.appendChild(image);
         }
+        trackContainer.appendChild(imagesTrack);
+        imageSliderContainer.appendChild(trackContainer);
+        // create next button
+        const rightButton = document.createElement('button');
+        rightButton.id = 'right-button';
+        rightButton.innerText = 'next';
+        imageSliderContainer.appendChild(rightButton);
+        // create slider nav buttons
+        const sliderNav = document.createElement('div');
+        sliderNav.id = 'slider-nav';
+        for (let i = 0; i < images.length; i += 1) {
+            const navButton = document.createElement('button');
+            navButton.classList.add('nav-button');
+            navButton.setAttribute('nav-button-id', i + 1);
+            sliderNav.appendChild(navButton);
+        }
+        imageSliderContainer.appendChild(sliderNav);
+
         contentContainer.appendChild(imageSliderContainer);
     }
 
